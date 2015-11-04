@@ -2,9 +2,9 @@ package sample;
 
 import java.util.Date;
 
-class Task {
-	String name;
-	Date creationTime;
-	Date term;
-	int priority;
+public class Task {
+	private String name;
+	private Date creationTime;
+	private Date term;
+	private int priority;
 }
