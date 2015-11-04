@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -26,5 +27,9 @@ public class TaskTable {
 		tableName = new Label("Some table");
 		buttonLayout = new HBox(addButton, deleteButton);
 		mainLayout = new VBox(tableName, tableView, buttonLayout);
+	}
+
+	VBox getMainLayout(){
+		return mainLayout;
 	}
 }
