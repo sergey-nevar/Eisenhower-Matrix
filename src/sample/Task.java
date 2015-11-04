@@ -7,4 +7,8 @@ public class Task {
 	private Date creationTime;
 	private Date term;
 	private int priority;
+
+	Task(String nameOfTask){
+		name = nameOfTask;
+	}
 }
