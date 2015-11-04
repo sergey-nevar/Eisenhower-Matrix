@@ -11,10 +11,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("EisenhowerMatrix");
-        Text txt = new Text("EisenhowerMatrix");
-        StackPane root = new StackPane();
-        root.getChildren().add(txt);
-        primaryStage.setScene(new Scene(root, 300, 275));
+        TaskTable table = new TaskTable();
+        primaryStage.setScene(new Scene(table.getMainLayout(), 300, 275));
         primaryStage.show();
     }
 
