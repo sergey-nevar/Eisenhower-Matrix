@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Popup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class TaskTable {
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("Handle of addButton");
+				TaskCreationWindow cr = new TaskCreationWindow();
 			}
 		});
 		deleteButton = new Button("Delete");
