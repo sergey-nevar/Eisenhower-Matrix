@@ -1,9 +1,13 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -15,7 +19,7 @@ import java.util.List;
 
 public class TaskTable {
 	private List<Task> taskList;
-	private TableView tableView;
+	private TableView<Task> tableView;
 	private Button addButton;
 	private Button deleteButton;
 	private Label tableName;
@@ -24,8 +28,16 @@ public class TaskTable {
 	private VBox mainLayout;
 
 	TaskTable(){
-		tableView = new TableView();
 		taskList = new ArrayList<>();
+		taskList.add(new Task("Example Task"));
+		taskList.add(new Task("second task"));
+		ObservableList observableTaskList = FXCollections.observableList(taskList);
+
+		tableView = new TableView<>();
+		tableView.setItems(observableTaskList);
+		TableColumn titleCol = new TableColumn("Task");
+		titleCol.setCellValueFactory(new PropertyValueFactory("name"));
+		tableView.getColumns().setAll(titleCol);
 
 		tableName = new Label("Some table");
 		textLayout = new VBox(tableName);
