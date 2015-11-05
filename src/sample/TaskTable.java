@@ -50,7 +50,6 @@ public class TaskTable {
 		addButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Handle of addButton");
 				TaskCreationWindow cr = new TaskCreationWindow();
 			}
 		});

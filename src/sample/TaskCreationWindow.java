@@ -16,8 +16,11 @@ public class TaskCreationWindow{
 
 		Label nameLabel = new Label("Name of task: ");
 		Label priorityLabel = new Label("Priority: ");
-		Label dateLabel = new Label("Deadline date");
+		Label dateLabel = new Label("Deadline date:");
+		Label timeLabel = new Label("Deadline time:");
+
 		TextField nameTextField = new TextField();
+		TextField timeTextField = new TextField();
 
 		ObservableList<String> country = FXCollections.observableArrayList("-", "1", "2", "3", "4", "5");
 		ChoiceBox<String> choiceBox = new ChoiceBox<String>(country);
@@ -33,13 +36,15 @@ public class TaskCreationWindow{
 		grid.add(nameTextField, 2, 1);
 		grid.add(dateLabel, 1, 2);
 		grid.add(datePicker, 2, 2);
-		grid.add(priorityLabel, 1, 3);
-		grid.add(choiceBox, 2, 3);
+		grid.add(timeLabel, 1, 3);
+		grid.add(timeTextField, 2, 3);
+		grid.add(priorityLabel, 1, 4);
+		grid.add(choiceBox, 2, 4);
 		creationDialog.getDialogPane().setContent(grid);
 
 		ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
 		creationDialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
-
+		
 		creationDialog.show();
 	}
 }
