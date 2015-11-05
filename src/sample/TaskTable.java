@@ -51,7 +51,10 @@ public class TaskTable {
 		mainLayout = new VBox(textLayout, tableView, buttonLayout);
 	}
 
-	VBox getMainLayout(){
+	public VBox getMainLayout(){
 		return mainLayout;
+	}
+	public void setLabel(String str){
+		tableName.setText(str);
 	}
 }
