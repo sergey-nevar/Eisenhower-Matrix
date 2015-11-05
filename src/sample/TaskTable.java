@@ -2,6 +2,8 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -44,6 +46,12 @@ public class TaskTable {
 		textLayout.setAlignment(Pos.CENTER);
 
 		addButton = new Button("Add");
+		addButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("Handle of addButton");
+			}
+		});
 		deleteButton = new Button("Delete");
 		buttonLayout = new HBox(addButton, deleteButton);
 		buttonLayout.setAlignment(Pos.CENTER);
