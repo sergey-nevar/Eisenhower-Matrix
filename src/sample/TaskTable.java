@@ -51,6 +51,9 @@ public class TaskTable {
 			@Override
 			public void handle(ActionEvent event) {
 				TaskCreationWindow cr = new TaskCreationWindow();
+				taskList.add(cr.getResultTask());
+				ObservableList observableTaskList2 = FXCollections.observableList(taskList);
+				tableView.setItems(observableTaskList2);
 			}
 		});
 		deleteButton = new Button("Delete");
