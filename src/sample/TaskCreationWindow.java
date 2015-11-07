@@ -35,8 +35,8 @@ public class TaskCreationWindow{
 
 		TextField nameTextField = new TextField();
 
-		ObservableList<String> country = FXCollections.observableArrayList("-", "1", "2", "3", "4", "5");
-		ChoiceBox<String> choiceBox = new ChoiceBox<String>(country);
+		ObservableList<String> priorities = FXCollections.observableArrayList("-", "1", "2", "3", "4", "5");
+		ChoiceBox<String> choiceBox = new ChoiceBox<String>(priorities);
 
 		DatePicker datePicker = new DatePicker();
 		datePicker.setOnAction(event -> {
@@ -60,7 +60,8 @@ public class TaskCreationWindow{
 
 		creationDialog.setResultConverter(b -> {
 			if (b == buttonTypeOk) {
-				return new Task(nameTextField.getText());
+				String time = hourSpinner.getValue().toString() + ':' + minuteSpinner.getValue().toString();
+				return new Task(nameTextField.getText(), time, datePicker.getValue().toString(), choiceBox.getValue());
 			}
 			return null;
 		});
