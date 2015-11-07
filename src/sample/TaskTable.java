@@ -47,14 +47,11 @@ public class TaskTable {
 		textLayout.setAlignment(Pos.CENTER);
 
 		addButton = new Button("Add");
-		addButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				TaskCreationWindow cr = new TaskCreationWindow();
-				taskList.add(cr.getResultTask());
-				ObservableList observableTaskList2 = FXCollections.observableList(taskList);
-				tableView.setItems(observableTaskList2);
-			}
+		addButton.setOnAction(event -> {
+			TaskCreationWindow cr = new TaskCreationWindow();
+			taskList.add(cr.getResultTask());
+			ObservableList observableTaskList2 = FXCollections.observableList(taskList);
+			tableView.setItems(observableTaskList2);
 		});
 		deleteButton = new Button("Delete");
 		buttonLayout = new HBox(addButton, deleteButton);
