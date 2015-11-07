@@ -32,15 +32,24 @@ public class TaskTable {
 
 	TaskTable(){
 		taskList = new ArrayList<>();
-		taskList.add(new Task("Example Task"));
-		taskList.add(new Task("second task"));
 		ObservableList observableTaskList = FXCollections.observableList(taskList);
 
 		tableView = new TableView<>();
 		tableView.setItems(observableTaskList);
-		TableColumn titleCol = new TableColumn("Task");
-		titleCol.setCellValueFactory(new PropertyValueFactory("name"));
-		tableView.getColumns().setAll(titleCol);
+		TableColumn taskNameColumn = new TableColumn("Task");
+		taskNameColumn.setCellValueFactory(new PropertyValueFactory("name"));
+		TableColumn creationDateColumn = new TableColumn("Creation date");
+		creationDateColumn.setCellValueFactory(new PropertyValueFactory("creationDate"));
+		TableColumn creationTimeColumn = new TableColumn("Creation time");
+		creationTimeColumn.setCellValueFactory(new PropertyValueFactory("creationTime"));
+		TableColumn deadlineDateColumn = new TableColumn("Deadline date");
+		deadlineDateColumn.setCellValueFactory(new PropertyValueFactory("termDate"));
+		TableColumn deadlineTimeColumn = new TableColumn("Deadline time");
+		deadlineTimeColumn.setCellValueFactory(new PropertyValueFactory("termTime"));
+		TableColumn priorityColumn = new TableColumn("Priority");
+		priorityColumn.setCellValueFactory(new PropertyValueFactory("priority"));
+		tableView.getColumns().setAll(taskNameColumn, deadlineDateColumn, deadlineTimeColumn);
+		tableView.getColumns().addAll(creationDateColumn, creationTimeColumn, priorityColumn);
 
 		tableName = new Label("Some table");
 		textLayout = new VBox(tableName);
