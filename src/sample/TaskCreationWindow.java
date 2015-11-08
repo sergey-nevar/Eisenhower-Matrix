@@ -60,8 +60,11 @@ public class TaskCreationWindow{
 
 		creationDialog.setResultConverter(b -> {
 			if (b == buttonTypeOk) {
-				String time = hourSpinner.getValue().toString() + ':' + minuteSpinner.getValue().toString();
-				return new Task(nameTextField.getText(), time, datePicker.getValue().toString(), choiceBox.getValue());
+				StringBuilder time = new StringBuilder(hourSpinner.getValue().toString() + ':');
+				if(minuteSpinner.getValue() < 10)
+					time.append('0');
+				time.append(minuteSpinner.getValue());
+				return new Task(nameTextField.getText(), time.toString(), datePicker.getValue().toString(), choiceBox.getValue());
 			}
 			return null;
 		});
