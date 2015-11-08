@@ -4,6 +4,10 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,15 +20,13 @@ public class Task {
 	private SimpleStringProperty priority;
 
 	Task(String name, String termTime, String termDate, String priority){
+		Date date = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		creationDate = new SimpleStringProperty(df.format(date));
+		df = new SimpleDateFormat("HH:mm");
+		creationTime = new SimpleStringProperty(df.format(date));
+
 		this.name = new SimpleStringProperty(name);
-		Calendar calendar = Calendar.getInstance();
-		String currentHour = String.valueOf(calendar.get(Calendar.HOUR)),
-				currentMinute = String.valueOf(calendar.get(Calendar.MINUTE));
-		creationTime = new SimpleStringProperty(currentHour + ':' + currentMinute);
-		String currentYear = String.valueOf(calendar.get(Calendar.YEAR)),
-				currentMonth = String.valueOf(calendar.get(Calendar.MONTH)),
-				currentDate = String.valueOf(calendar.get(Calendar.DATE));
-		creationDate = new SimpleStringProperty(currentYear + '-' + currentMonth + '-' + currentDate);
 		this.termTime = new SimpleStringProperty(termTime);
 		this.termDate = new SimpleStringProperty(termDate);
 		this.priority = new SimpleStringProperty(priority);
