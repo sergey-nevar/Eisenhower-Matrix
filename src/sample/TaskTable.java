@@ -9,7 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -50,6 +53,9 @@ public class TaskTable {
 		priorityColumn.setCellValueFactory(new PropertyValueFactory("priority"));
 		tableView.getColumns().setAll(taskNameColumn, deadlineDateColumn, deadlineTimeColumn);
 		tableView.getColumns().addAll(creationDateColumn, creationTimeColumn, priorityColumn);
+
+		tableView.setEditable(true);
+		taskNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
 		tableName = new Label("Some table");
 		textLayout = new VBox(tableName);
