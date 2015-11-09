@@ -41,16 +41,22 @@ public class TaskTable {
 		tableView.setItems(observableTaskList);
 		TableColumn taskNameColumn = new TableColumn("Task");
 		taskNameColumn.setCellValueFactory(new PropertyValueFactory("name"));
+		taskNameColumn.setMinWidth(200);
 		TableColumn creationDateColumn = new TableColumn("Creation date");
 		creationDateColumn.setCellValueFactory(new PropertyValueFactory("creationDate"));
+		creationDateColumn.setMinWidth(100);
 		TableColumn creationTimeColumn = new TableColumn("Creation time");
 		creationTimeColumn.setCellValueFactory(new PropertyValueFactory("creationTime"));
+		creationTimeColumn.setMinWidth(100);
 		TableColumn deadlineDateColumn = new TableColumn("Deadline date");
 		deadlineDateColumn.setCellValueFactory(new PropertyValueFactory("termDate"));
+		deadlineDateColumn.setMinWidth(100);
 		TableColumn deadlineTimeColumn = new TableColumn("Deadline time");
 		deadlineTimeColumn.setCellValueFactory(new PropertyValueFactory("termTime"));
+		deadlineTimeColumn.setMinWidth(100);
 		TableColumn priorityColumn = new TableColumn("Priority");
 		priorityColumn.setCellValueFactory(new PropertyValueFactory("priority"));
+		priorityColumn.setMinWidth(50);
 		tableView.getColumns().setAll(taskNameColumn, deadlineDateColumn, deadlineTimeColumn);
 		tableView.getColumns().addAll(creationDateColumn, creationTimeColumn, priorityColumn);
 
