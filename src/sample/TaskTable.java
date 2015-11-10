@@ -66,7 +66,13 @@ public class TaskTable {
 			ObservableList observableTaskList2 = FXCollections.observableList(taskList);
 			tableView.setItems(observableTaskList2);
 		});
+
 		deleteButton = new Button("Delete");
+		deleteButton.setOnAction(event ->{
+			int delRow = tableView.getSelectionModel().getSelectedIndex();
+			tableView.getItems().remove(delRow);
+		});
+
 		buttonLayout = new HBox(addButton, deleteButton);
 		buttonLayout.setAlignment(Pos.CENTER);
 
