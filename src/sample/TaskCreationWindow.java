@@ -39,6 +39,7 @@ public class TaskCreationWindow{
 		ChoiceBox<String> choiceBox = new ChoiceBox<String>(priorities);
 
 		DatePicker datePicker = new DatePicker();
+		datePicker.setEditable(false);
 		datePicker.setOnAction(event -> {
 			LocalDate date = datePicker.getValue();
 			System.out.println("Selected date: " + date);
@@ -64,7 +65,11 @@ public class TaskCreationWindow{
 				if(minuteSpinner.getValue() < 10)
 					time.append('0');
 				time.append(minuteSpinner.getValue());
-				return new Task(nameTextField.getText(), time.toString(), datePicker.getValue().toString(), choiceBox.getValue());
+
+				String dateString = new String();
+				if(datePicker.getValue() != null)
+					dateString = datePicker.getValue().toString();
+				return new Task(nameTextField.getText(), time.toString(), dateString, choiceBox.getValue());
 			}
 			return null;
 		});
