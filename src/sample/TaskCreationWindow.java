@@ -28,7 +28,7 @@ public class TaskCreationWindow{
 		Spinner<Integer> hourSpinner = new Spinner<>(0, 23, 12);
 		hourSpinner.setMaxWidth(60);
 
-		Spinner<Integer> minuteSpinner = new Spinner<>(0, 60, 0, 5);
+		Spinner<Integer> minuteSpinner = new Spinner<>(0, 55, 0, 5);
 		minuteSpinner.setMaxWidth(60);
 
 		HBox spinnerHBox = new HBox(hourSpinner, minuteSpinner);
@@ -61,7 +61,10 @@ public class TaskCreationWindow{
 
 		creationDialog.setResultConverter(b -> {
 			if (b == buttonTypeOk) {
-				StringBuilder time = new StringBuilder(hourSpinner.getValue().toString() + ':');
+				StringBuilder time = new StringBuilder();
+				if(hourSpinner.getValue() < 10)
+					time.append('0');
+				time.append(hourSpinner.getValue().toString() + ":");
 				if(minuteSpinner.getValue() < 10)
 					time.append('0');
 				time.append(minuteSpinner.getValue());
