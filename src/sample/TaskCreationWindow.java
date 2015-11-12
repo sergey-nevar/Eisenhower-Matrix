@@ -15,37 +15,50 @@ import java.util.Optional;
 public class TaskCreationWindow{
 	private Dialog<Task> creationDialog;
 	private Task resultTask;
+	private Label nameLabel;
+	private Label priorityLabel;
+	private Label dateLabel;
+	private Label timeLabel;
+	private Spinner<Integer> hourSpinner;
+	private Spinner<Integer> minuteSpinner;
+	private TextField nameTextField;
+	private ChoiceBox<String> choiceBox;
+	private HBox spinnerHBox;
+	private DatePicker datePicker;
+	private GridPane grid;
+	private ButtonType buttonTypeOk;
+
 	TaskCreationWindow(){
 		creationDialog = new Dialog<>();
 		creationDialog.setTitle("Add task");
 		creationDialog.setContentText("Add information and press OK");
 
-		Label nameLabel = new Label("Name of task: ");
-		Label priorityLabel = new Label("Priority: ");
-		Label dateLabel = new Label("Deadline date:");
-		Label timeLabel = new Label("Deadline time(h/m):");
+		nameLabel = new Label("Name of task: ");
+		priorityLabel = new Label("Priority: ");
+		dateLabel = new Label("Deadline date:");
+		timeLabel = new Label("Deadline time(h/m):");
 
-		Spinner<Integer> hourSpinner = new Spinner<>(0, 23, 12);
+		hourSpinner = new Spinner<>(0, 23, 12);
 		hourSpinner.setMaxWidth(60);
 
-		Spinner<Integer> minuteSpinner = new Spinner<>(0, 55, 0, 5);
+		minuteSpinner = new Spinner<>(0, 55, 30, 5);
 		minuteSpinner.setMaxWidth(60);
 
-		HBox spinnerHBox = new HBox(hourSpinner, minuteSpinner);
+		spinnerHBox = new HBox(hourSpinner, minuteSpinner);
 
-		TextField nameTextField = new TextField();
+		nameTextField = new TextField();
 
 		ObservableList<String> priorities = FXCollections.observableArrayList("-", "1", "2", "3", "4", "5");
-		ChoiceBox<String> choiceBox = new ChoiceBox<String>(priorities);
+		choiceBox = new ChoiceBox<String>(priorities);
 
-		DatePicker datePicker = new DatePicker();
+		datePicker = new DatePicker();
 		datePicker.setEditable(false);
 		datePicker.setOnAction(event -> {
 			LocalDate date = datePicker.getValue();
 			System.out.println("Selected date: " + date);
 		});
 
-		GridPane grid = new GridPane();
+		grid = new GridPane();
 		grid.add(nameLabel, 1, 1);
 		grid.add(nameTextField, 2, 1);
 		grid.add(dateLabel, 1, 2);
@@ -56,21 +69,21 @@ public class TaskCreationWindow{
 		grid.add(spinnerHBox, 2, 4);
 		creationDialog.getDialogPane().setContent(grid);
 
-		ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
+		buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
 		creationDialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
 
 		creationDialog.setResultConverter(b -> {
 			if (b == buttonTypeOk) {
 				StringBuilder time = new StringBuilder();
-				if(hourSpinner.getValue() < 10)
+				if (hourSpinner.getValue() < 10)
 					time.append('0');
 				time.append(hourSpinner.getValue().toString() + ":");
-				if(minuteSpinner.getValue() < 10)
+				if (minuteSpinner.getValue() < 10)
 					time.append('0');
 				time.append(minuteSpinner.getValue());
 
 				String dateString = new String();
-				if(datePicker.getValue() != null)
+				if (datePicker.getValue() != null)
 					dateString = datePicker.getValue().toString();
 				return new Task(nameTextField.getText(), time.toString(), dateString, choiceBox.getValue());
 			}
