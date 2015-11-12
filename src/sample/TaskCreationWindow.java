@@ -37,6 +37,7 @@ public class TaskCreationWindow{
 	}
 
 	TaskCreationWindow(Task task){
+		initializeWindow();
 		nameTextField.setText(task.getName());
 		choiceBox.setValue(task.getPriotrity());
 	}
