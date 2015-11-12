@@ -29,6 +29,14 @@ public class TaskCreationWindow{
 	private ButtonType buttonTypeOk;
 
 	TaskCreationWindow(){
+		initializeWindow();
+		Optional<Task> result = creationDialog.showAndWait();
+		if(result.isPresent()){
+			resultTask = result.get();
+		}
+	}
+
+	public void initializeWindow(){
 		creationDialog = new Dialog<>();
 		creationDialog.setTitle("Add task");
 		creationDialog.setContentText("Add information and press OK");
@@ -89,11 +97,6 @@ public class TaskCreationWindow{
 			}
 			return null;
 		});
-
-		Optional<Task> result = creationDialog.showAndWait();
-		if(result.isPresent()){
-			resultTask = result.get();
-		}
 	}
 
 	public Task getResultTask(){
