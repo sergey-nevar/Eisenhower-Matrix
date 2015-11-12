@@ -36,6 +36,11 @@ public class TaskCreationWindow{
 		}
 	}
 
+	TaskCreationWindow(Task task){
+		nameTextField.setText(task.getName());
+		choiceBox.setValue(task.getPriotrity());
+	}
+
 	public void initializeWindow(){
 		creationDialog = new Dialog<>();
 		creationDialog.setTitle("Add task");
