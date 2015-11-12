@@ -36,10 +36,14 @@ public class TaskCreationWindow{
 		}
 	}
 
-	TaskCreationWindow(Task task){
+	TaskCreationWindow(Task task) {
 		initializeWindow();
 		nameTextField.setText(task.getName());
 		choiceBox.setValue(task.getPriotrity());
+		Optional<Task> result = creationDialog.showAndWait();
+		if(result.isPresent()){
+			resultTask = result.get();
+		}
 	}
 
 	public void initializeWindow(){
