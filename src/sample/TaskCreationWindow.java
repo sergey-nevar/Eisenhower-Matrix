@@ -92,6 +92,8 @@ public class TaskCreationWindow{
 
 		creationDialog.setResultConverter(b -> {
 			if (b == buttonTypeOk) {
+				if(nameTextField.getText().length() == 0)
+					return null;
 				StringBuilder time = new StringBuilder();
 				if (hourSpinner.getValue() < 10)
 					time.append('0');
