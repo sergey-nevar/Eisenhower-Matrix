@@ -16,6 +16,7 @@ public class TaskTable {
 	private List<Task> taskList;
 	private TableView<Task> tableView;
 	private Button addButton;
+	private Button editButton;
 	private Button deleteButton;
 	private Label tableName;
 	private HBox buttonLayout;
@@ -49,11 +50,6 @@ public class TaskTable {
 		tableView.getColumns().setAll(taskNameColumn, deadlineDateColumn, deadlineTimeColumn);
 		tableView.getColumns().addAll(creationDateColumn, creationTimeColumn, priorityColumn);
 
-		tableView.setEditable(true);
-		taskNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		ObservableList priorityList = FXCollections.observableArrayList("-", "1", "2", "3", "4", "5");
-		priorityColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(priorityList));
-
 		tableName = new Label("Some table");
 		textLayout = new VBox(tableName);
 		textLayout.setAlignment(Pos.CENTER);
@@ -61,9 +57,10 @@ public class TaskTable {
 		addButton = new Button("Add");
 		addButton.setOnAction(event -> {
 			TaskCreationWindow cr = new TaskCreationWindow();
-			taskList.add(cr.getResultTask());
-			ObservableList observableTaskList2 = FXCollections.observableList(taskList);
-			tableView.setItems(observableTaskList2);
+			if(cr.getResultTask() != null) {
+				taskList.add(cr.getResultTask());
+				tableView.setItems(FXCollections.observableList(taskList));
+			}
 		});
 
 		deleteButton = new Button("Delete");
@@ -72,7 +69,17 @@ public class TaskTable {
 			tableView.getItems().remove(delRow);
 		});
 
-		buttonLayout = new HBox(addButton, deleteButton);
+		editButton = new Button("Edit");
+		editButton.setOnAction(event -> {
+			TaskCreationWindow cr = new TaskCreationWindow(tableView.getSelectionModel().getSelectedItem());
+			if(cr.getResultTask() != null) {
+				taskList.add(cr.getResultTask());
+				int delRow = tableView.getSelectionModel().getSelectedIndex();
+				tableView.getItems().remove(delRow);
+			}
+			tableView.getSelectionModel().clearSelection();
+		});
+		buttonLayout = new HBox(addButton, deleteButton, editButton);
 		buttonLayout.setAlignment(Pos.CENTER);
 
 		mainLayout = new VBox(textLayout, tableView, buttonLayout);
