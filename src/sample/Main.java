@@ -13,6 +13,7 @@ public class Main extends Application {
         primaryStage.setTitle("EisenhowerMatrix");
         TaskTable table = new TaskTable();
         primaryStage.setScene(new Scene(table.getMainLayout(), 700, 400));
+        DatabaseController control = new DatabaseController();
         primaryStage.show();
     }
 
