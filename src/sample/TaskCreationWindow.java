@@ -2,14 +2,10 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 public class TaskCreationWindow{
@@ -71,10 +67,6 @@ public class TaskCreationWindow{
 
 		datePicker = new DatePicker();
 		datePicker.setEditable(false);
-		datePicker.setOnAction(event -> {
-			LocalDate date = datePicker.getValue();
-			System.out.println("Selected date: " + date);
-		});
 
 		grid = new GridPane();
 		grid.add(nameLabel, 1, 1);
