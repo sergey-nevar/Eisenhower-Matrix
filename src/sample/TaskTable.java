@@ -24,6 +24,8 @@ public class TaskTable {
 	private VBox mainLayout;
 
 	TaskTable(){
+		DatabaseController c = DatabaseController.getInstance();
+		c.createTable("IaU");
 		taskList = new ArrayList<>();
 		ObservableList observableTaskList = FXCollections.observableList(taskList);
 
