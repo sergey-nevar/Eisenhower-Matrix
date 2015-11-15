@@ -1,10 +1,6 @@
 package sample;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DatabaseController {
 	private final String url = "jdbc:mysql://localhost:3306";
@@ -14,6 +10,10 @@ public class DatabaseController {
 	private Connection connection;
 	private Statement statement;
 	private ResultSet resultSet;
+
+	private final String createTableQuery =
+			"CREATE TABLE IF NOT EXISTS %s (id serial, taskName TEXT, dDate TEXT," +
+					" dTime TEXT, cDate TEXT, cTime TEXT, priority TEXT, PRIMARY KEY id) ENGINE InnoDB";
 
 	DatabaseController() {
 		try {
@@ -29,9 +29,24 @@ public class DatabaseController {
 			try {
 				statement.close();
 			} catch(SQLException se) { /*can't do anything */ }
+		}
+	}
+	public void createTable(String tableName){
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			statement = connection.createStatement();
+			String query = String.format(createTableQuery, tableName);
+			statement.executeUpdate(query);
+		}
+		catch (SQLException sqlEx) {
+			sqlEx.printStackTrace();
+		}
+		finally {
 			try {
-				if(resultSet != null)
-					resultSet.close();
+				connection.close();
+			} catch(SQLException se) { /*can't do anything */ }
+			try {
+				statement.close();
 			} catch(SQLException se) { /*can't do anything */ }
 		}
 	}
