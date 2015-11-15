@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("EisenhowerMatrix");
-        TaskTable table = new TaskTable();
+        TaskTable table = new TaskTable("Tasks");
         primaryStage.setScene(new Scene(table.getMainLayout(), 700, 400));
         primaryStage.show();
     }

@@ -23,9 +23,9 @@ public class TaskTable {
 	private VBox textLayout;
 	private VBox mainLayout;
 
-	TaskTable(){
-		DatabaseController c = DatabaseController.getInstance();
-		c.createTable("IaU");
+	TaskTable(String nameOfTable){
+		DatabaseController dbController = DatabaseController.getInstance();
+		dbController.createTable(nameOfTable);
 		taskList = new ArrayList<>();
 		ObservableList observableTaskList = FXCollections.observableList(taskList);
 
@@ -52,7 +52,7 @@ public class TaskTable {
 		tableView.getColumns().setAll(taskNameColumn, deadlineDateColumn, deadlineTimeColumn);
 		tableView.getColumns().addAll(creationDateColumn, creationTimeColumn, priorityColumn);
 
-		tableName = new Label("Some table");
+		tableName = new Label(nameOfTable);
 		textLayout = new VBox(tableName);
 		textLayout.setAlignment(Pos.CENTER);
 
