@@ -31,6 +31,14 @@ public class Task {
 		this.termDate = new SimpleStringProperty(termDate);
 		this.priority = new SimpleStringProperty(priority);
 	}
+	Task(String name, String termDate, String termTime, String crDate, String crTime, String priority){
+		creationDate = new SimpleStringProperty(crDate);
+		creationTime = new SimpleStringProperty(crTime);
+		this.name = new SimpleStringProperty(name);
+		this.termTime = new SimpleStringProperty(termTime);
+		this.termDate = new SimpleStringProperty(termDate);
+		this.priority = new SimpleStringProperty(priority);
+	}
 	public StringProperty nameProperty(){
 		return name;
 	}
