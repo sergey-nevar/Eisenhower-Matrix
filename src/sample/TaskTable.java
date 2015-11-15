@@ -62,6 +62,7 @@ public class TaskTable {
 			if(cr.getResultTask() != null) {
 				taskList.add(cr.getResultTask());
 				tableView.setItems(FXCollections.observableList(taskList));
+				dbController.addTask(nameOfTable, cr.getResultTask());
 			}
 		});
 

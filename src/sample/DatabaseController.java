@@ -16,6 +16,9 @@ public class DatabaseController {
 	private final String createTableQuery =
 			"CREATE TABLE IF NOT EXISTS %s (id serial, taskName TEXT, dDate TEXT," +
 					" dTime TEXT, cDate TEXT, cTime TEXT, priority TEXT, PRIMARY KEY (id))";
+	private final String addTaskQuery =
+			"INSERT INTO %s (taskName, dDate, dTime, cDate, cTime, priority) " +
+					"VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
 
 	private DatabaseController() {
 		try {
@@ -55,5 +58,31 @@ public class DatabaseController {
 
 	public static DatabaseController getInstance(){
 		return instance;
+	}
+
+	public void addTask(String tableName, Task task){
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			statement = connection.createStatement();
+			String name = task.getName();
+			String priority = task.getPriotrity();
+			String cDate = task.getCreationDate();
+			String cTime = task.getCreationTime();
+			String dDate = task.getTermDate();
+			String dTime = task.getTermTime();
+			String query = String.format(addTaskQuery, tableName, name, dDate, dTime, cDate, cTime, priority);
+			statement.executeUpdate(query);
+		}
+		catch (SQLException sqlEx) {
+			sqlEx.printStackTrace();
+		}
+		finally {
+			try {
+				connection.close();
+			} catch(SQLException se) { /*can't do anything */ }
+			try {
+				statement.close();
+			} catch(SQLException se) { /*can't do anything */ }
+		}
 	}
 }
