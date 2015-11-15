@@ -26,7 +26,7 @@ public class TaskTable {
 	TaskTable(String nameOfTable){
 		DatabaseController dbController = DatabaseController.getInstance();
 		dbController.createTable(nameOfTable);
-		taskList = new ArrayList<>();
+		taskList = dbController.getTasks(nameOfTable);
 		ObservableList observableTaskList = FXCollections.observableList(taskList);
 
 		tableView = new TableView<>();
