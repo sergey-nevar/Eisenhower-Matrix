@@ -41,30 +41,30 @@ public class Task {
 		return termTime;
 	}
 	public String getTermTime(){
-		return termTime.getName();
+		return termTime.getValue();
 	}
 	public StringProperty termDateProperty(){
 		return termDate;
 	}
 	public String getTermDate(){
-		return termDate.getName();
+		return termDate.getValue();
 	}
 	public StringProperty creationTimeProperty(){
 		return creationTime;
 	}
 	public String getCreationTime(){
-		return creationTime.getName();
+		return creationTime.getValue();
 	}
 	public StringProperty creationDateProperty(){
 		return creationDate;
 	}
 	public String getCreationDate(){
-		return creationDate.getName();
+		return creationDate.getValue();
 	}
 	public StringProperty priorityProperty(){
 		return priority;
 	}
 	public String getPriotrity(){
-		return priority.getName();
+		return priority.getValue();
 	}
 }
