@@ -22,6 +22,8 @@ public class DatabaseController {
 					"VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
 	private final String removeTaskQuery = "DELETE FROM %s WHERE taskName='%s' AND dDate='%s' AND" +
 			" dTime='%s' AND cDate='%s' AND cTime='%s' AND priority='%s'";
+	private final String editTaskQuery = "UPDATE %s SET taskName='%s', dDate='%s', dTime='%s', priority='%s'" +
+			"WHERE taskName='%s' AND dDate='%s' AND dTime='%s' AND priority='%s'";
 
 	private DatabaseController() {
 		try {
@@ -130,6 +132,34 @@ public class DatabaseController {
 			String dDate = task.getTermDate();
 			String dTime = task.getTermTime();
 			String query = String.format(removeTaskQuery, tableName, name, dDate, dTime, cDate, cTime, priority);
+			statement.executeUpdate(query);
+		}
+		catch (SQLException sqlEx) {
+			sqlEx.printStackTrace();
+		}
+		finally {
+			try {
+				connection.close();
+			} catch(SQLException se) { /*can't do anything */ }
+			try {
+				statement.close();
+			} catch(SQLException se) { /*can't do anything */ }
+		}
+	}
+	public void editTask(String tableName, Task oldTask, Task newTask){
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			statement = connection.createStatement();
+			String newName = newTask.getName();
+			String newPriority = newTask.getPriotrity();
+			String newDDate = newTask.getTermDate();
+			String newDTime = newTask.getTermTime();
+			String oldName = oldTask.getName();
+			String oldPriority = oldTask.getPriotrity();
+			String oldDDate = oldTask.getTermDate();
+			String oldDTime = oldTask.getTermTime();
+			String query = String.format(editTaskQuery, tableName, newName, newDDate, newDTime, newPriority,
+					oldName, oldDDate, oldDTime, oldPriority);
 			statement.executeUpdate(query);
 		}
 		catch (SQLException sqlEx) {
