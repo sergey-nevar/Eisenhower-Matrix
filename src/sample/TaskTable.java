@@ -77,9 +77,12 @@ public class TaskTable {
 		editButton.setOnAction(event -> {
 			TaskCreationWindow cr = new TaskCreationWindow(tableView.getSelectionModel().getSelectedItem());
 			if(cr.getResultTask() != null) {
-				taskList.add(cr.getResultTask());
-				int delRow = tableView.getSelectionModel().getSelectedIndex();
-				tableView.getItems().remove(delRow);
+				Task editingTask = tableView.getSelectionModel().getSelectedItem();
+				dbController.editTask(nameOfTable, editingTask, cr.getResultTask());
+				editingTask.setName(cr.getResultTask().getName());
+				editingTask.setPriority(cr.getResultTask().getPriotrity());
+				editingTask.setTermDate(cr.getResultTask().getTermDate());
+				editingTask.setTermTime(cr.getResultTask().getTermTime());
 			}
 			tableView.getSelectionModel().clearSelection();
 		});
