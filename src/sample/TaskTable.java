@@ -69,6 +69,7 @@ public class TaskTable {
 		deleteButton = new Button("Delete");
 		deleteButton.setOnAction(event ->{
 			int delRow = tableView.getSelectionModel().getSelectedIndex();
+			dbController.removeTask(nameOfTable, tableView.getSelectionModel().getSelectedItem());
 			tableView.getItems().remove(delRow);
 		});
 

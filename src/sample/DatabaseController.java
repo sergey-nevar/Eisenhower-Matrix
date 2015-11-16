@@ -20,7 +20,8 @@ public class DatabaseController {
 	private final String addTaskQuery =
 			"INSERT INTO %s (taskName, dDate, dTime, cDate, cTime, priority) " +
 					"VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
-	private final String getTasksQuery = "SELECT * FROM %s";
+	private final String removeTaskQuery = "DELETE FROM %s WHERE taskName='%s' AND dDate='%s' AND" +
+			" dTime='%s' AND cDate='%s' AND cTime='%s' AND priority='%s'";
 
 	private DatabaseController() {
 		try {
@@ -116,5 +117,31 @@ public class DatabaseController {
 			} catch(SQLException se) { /*can't do anything */ }
 		}
 		return resultList;
+	}
+
+	public void removeTask(String tableName, Task task){
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			statement = connection.createStatement();
+			String name = task.getName();
+			String priority = task.getPriotrity();
+			String cDate = task.getCreationDate();
+			String cTime = task.getCreationTime();
+			String dDate = task.getTermDate();
+			String dTime = task.getTermTime();
+			String query = String.format(removeTaskQuery, tableName, name, dDate, dTime, cDate, cTime, priority);
+			statement.executeUpdate(query);
+		}
+		catch (SQLException sqlEx) {
+			sqlEx.printStackTrace();
+		}
+		finally {
+			try {
+				connection.close();
+			} catch(SQLException se) { /*can't do anything */ }
+			try {
+				statement.close();
+			} catch(SQLException se) { /*can't do anything */ }
+		}
 	}
 }
