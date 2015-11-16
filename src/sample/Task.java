@@ -75,4 +75,16 @@ public class Task {
 	public String getPriotrity(){
 		return priority.getValue();
 	}
+	public void setName(String name){
+		this.name.set(name);
+	}
+	public void setTermDate(String tDate){
+		termDate.set(tDate);
+	}
+	public void setTermTime(String tTime){
+		termTime.set(tTime);
+	}
+	public void setPriority(String priority){
+		this.priority.set(priority);
+	}
 }
