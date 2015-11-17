@@ -2,7 +2,6 @@ package sample;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Dialog;
 
 import java.util.ArrayList;
 import java.util.Timer;
