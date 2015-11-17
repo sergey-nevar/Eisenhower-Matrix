@@ -19,7 +19,7 @@ public class TaskTable {
 	private Button addButton;
 	private Button editButton;
 	private Button deleteButton;
-	private Label tableName;
+	private Label nameLabel;
 	private HBox buttonLayout;
 	private VBox textLayout;
 	private VBox mainLayout;
@@ -53,8 +53,8 @@ public class TaskTable {
 		tableView.getColumns().setAll(taskNameColumn, deadlineDateColumn, deadlineTimeColumn);
 		tableView.getColumns().addAll(creationDateColumn, creationTimeColumn, priorityColumn);
 
-		tableName = new Label(nameOfTable);
-		textLayout = new VBox(tableName);
+		nameLabel = new Label(nameOfTable);
+		textLayout = new VBox(nameLabel);
 		textLayout.setAlignment(Pos.CENTER);
 
 		addButton = new Button("Add");
@@ -101,6 +101,6 @@ public class TaskTable {
 		return mainLayout;
 	}
 	public void setLabel(String str){
-		tableName.setText(str);
+		nameLabel.setText(str);
 	}
 }
