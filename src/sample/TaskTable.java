@@ -69,22 +69,26 @@ public class TaskTable {
 		deleteButton = new Button("Delete");
 		deleteButton.setOnAction(event ->{
 			int delRow = tableView.getSelectionModel().getSelectedIndex();
-			dbController.removeTask(nameOfTable, tableView.getSelectionModel().getSelectedItem());
-			tableView.getItems().remove(delRow);
+			if(delRow != -1) {
+				dbController.removeTask(nameOfTable, tableView.getSelectionModel().getSelectedItem());
+				tableView.getItems().remove(delRow);
+			}
 		});
 
 		editButton = new Button("Edit");
 		editButton.setOnAction(event -> {
-			TaskCreationWindow cr = new TaskCreationWindow(tableView.getSelectionModel().getSelectedItem());
-			if(cr.getResultTask() != null) {
-				Task editingTask = tableView.getSelectionModel().getSelectedItem();
-				dbController.editTask(nameOfTable, editingTask, cr.getResultTask());
-				editingTask.setName(cr.getResultTask().getName());
-				editingTask.setPriority(cr.getResultTask().getPriotrity());
-				editingTask.setTermDate(cr.getResultTask().getTermDate());
-				editingTask.setTermTime(cr.getResultTask().getTermTime());
+			if(tableView.getSelectionModel().getSelectedIndex() != -1) {
+				TaskCreationWindow cr = new TaskCreationWindow(tableView.getSelectionModel().getSelectedItem());
+				if (cr.getResultTask() != null) {
+					Task editingTask = tableView.getSelectionModel().getSelectedItem();
+					dbController.editTask(nameOfTable, editingTask, cr.getResultTask());
+					editingTask.setName(cr.getResultTask().getName());
+					editingTask.setPriority(cr.getResultTask().getPriotrity());
+					editingTask.setTermDate(cr.getResultTask().getTermDate());
+					editingTask.setTermTime(cr.getResultTask().getTermTime());
+				}
+				tableView.getSelectionModel().clearSelection();
 			}
-			tableView.getSelectionModel().clearSelection();
 		});
 		buttonLayout = new HBox(addButton, deleteButton, editButton);
 		buttonLayout.setAlignment(Pos.CENTER);
