@@ -14,12 +14,10 @@ public class DatabaseController {
 
 	private static final DatabaseController instance = new DatabaseController();
 
-	private final String createTableQuery =
-			"CREATE TABLE IF NOT EXISTS %s (id serial, taskName TEXT, dDate DATE," +
-					" dTime TIME, cDate DATE, cTime TIME, priority TEXT, PRIMARY KEY (id))";
-	private final String addTaskQuery =
-			"INSERT INTO %s (taskName, dDate, dTime, cDate, cTime, priority) " +
-					"VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
+	private final String createTableQuery = "CREATE TABLE IF NOT EXISTS %s (id serial, taskName TEXT, " +
+			"dDate DATE, dTime TIME, cDate DATE, cTime TIME, priority TEXT, PRIMARY KEY (id))";
+	private final String addTaskQuery = "INSERT INTO %s (taskName, dDate, dTime, cDate, cTime, priority) " +
+			"VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
 	private final String removeTaskQuery = "DELETE FROM %s WHERE taskName='%s' AND dDate='%s' AND" +
 			" dTime='%s' AND cDate='%s' AND cTime='%s' AND priority='%s'";
 	private final String editTaskQuery = "UPDATE %s SET taskName='%s', dDate='%s', dTime='%s', priority='%s'" +
@@ -47,8 +45,7 @@ public class DatabaseController {
 		try {
 			connection = DriverManager.getConnection(url, user, password);
 			statement = connection.createStatement();
-			String query = String.format(createTableQuery, tableName);
-			statement.executeUpdate(query);
+			statement.executeUpdate(String.format(createTableQuery, tableName));
 		}
 		catch (SQLException sqlEx) {
 			sqlEx.printStackTrace();
@@ -71,13 +68,8 @@ public class DatabaseController {
 		try {
 			connection = DriverManager.getConnection(url, user, password);
 			statement = connection.createStatement();
-			String name = task.getName();
-			String priority = task.getPriority();
-			String cDate = task.getCreationDate();
-			String cTime = task.getCreationTime();
-			String dDate = task.getTermDate();
-			String dTime = task.getTermTime();
-			String query = String.format(addTaskQuery, tableName, name, dDate, dTime, cDate, cTime, priority);
+			String query = String.format(addTaskQuery, tableName, task.getName(), task.getTermDate(),
+					task.getTermTime(), task.getCreationDate(), task.getCreationTime(), task.getPriority());
 			statement.executeUpdate(query);
 		}
 		catch (SQLException sqlEx) {
@@ -127,13 +119,8 @@ public class DatabaseController {
 		try {
 			connection = DriverManager.getConnection(url, user, password);
 			statement = connection.createStatement();
-			String name = task.getName();
-			String priority = task.getPriority();
-			String cDate = task.getCreationDate();
-			String cTime = task.getCreationTime();
-			String dDate = task.getTermDate();
-			String dTime = task.getTermTime();
-			String query = String.format(removeTaskQuery, tableName, name, dDate, dTime, cDate, cTime, priority);
+			String query = String.format(removeTaskQuery, tableName, task.getName(), task.getTermDate(),
+					task.getTermTime(), task.getCreationDate(), task.getCreationTime(), task.getPriority());
 			statement.executeUpdate(query);
 		}
 		catch (SQLException sqlEx) {
@@ -152,16 +139,9 @@ public class DatabaseController {
 		try {
 			connection = DriverManager.getConnection(url, user, password);
 			statement = connection.createStatement();
-			String newName = newTask.getName();
-			String newPriority = newTask.getPriority();
-			String newDDate = newTask.getTermDate();
-			String newDTime = newTask.getTermTime();
-			String oldName = oldTask.getName();
-			String oldPriority = oldTask.getPriority();
-			String oldDDate = oldTask.getTermDate();
-			String oldDTime = oldTask.getTermTime();
-			String query = String.format(editTaskQuery, tableName, newName, newDDate, newDTime, newPriority,
-					oldName, oldDDate, oldDTime, oldPriority);
+			String query = String.format(editTaskQuery, tableName, newTask.getName(), newTask.getTermDate(),
+					newTask.getTermTime(), newTask.getPriority(), oldTask.getName(), oldTask.getTermDate(),
+					oldTask.getTermTime(), oldTask.getPriority());
 			statement.executeUpdate(query);
 		}
 		catch (SQLException sqlEx) {
