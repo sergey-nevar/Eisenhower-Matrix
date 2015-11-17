@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,38 +33,20 @@ public class Task {
 		this.termDate = new SimpleStringProperty(termDate);
 		this.priority = new SimpleStringProperty(priority);
 	}
-	public StringProperty nameProperty(){
-		return name;
-	}
 	public String getName(){
 		return name.getValue();
-	}
-	public StringProperty termTimeProperty(){
-		return termTime;
 	}
 	public String getTermTime(){
 		return termTime.getValue();
 	}
-	public StringProperty termDateProperty(){
-		return termDate;
-	}
 	public String getTermDate(){
 		return termDate.getValue();
-	}
-	public StringProperty creationTimeProperty(){
-		return creationTime;
 	}
 	public String getCreationTime(){
 		return creationTime.getValue();
 	}
-	public StringProperty creationDateProperty(){
-		return creationDate;
-	}
 	public String getCreationDate(){
 		return creationDate.getValue();
-	}
-	public StringProperty priorityProperty(){
-		return priority;
 	}
 	public String getPriotrity(){
 		return priority.getValue();
