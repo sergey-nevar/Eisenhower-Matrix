@@ -1,12 +1,8 @@
 package sample;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,10 +18,8 @@ public class TaskTable {
 		DatabaseController dbController = DatabaseController.getInstance();
 		dbController.createTable(nameOfTable);
 		taskList = dbController.getTasks(nameOfTable);
-		ObservableList observableTaskList = FXCollections.observableList(taskList);
-
 		tableView = new TableView<>();
-		tableView.setItems(observableTaskList);
+		tableView.setItems(FXCollections.observableList(taskList));
 		TableColumn taskNameColumn = new TableColumn("Task");
 		taskNameColumn.setCellValueFactory(new PropertyValueFactory("name"));
 		taskNameColumn.setMinWidth(200);
