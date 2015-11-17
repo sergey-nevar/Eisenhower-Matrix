@@ -3,17 +3,13 @@ package sample;
 import javafx.scene.layout.GridPane;
 
 public class MainWindow {
-	private TaskTable tableA;
-	private TaskTable tableB;
-	private TaskTable tableC;
-	private TaskTable tableD;
 	private GridPane gridPane;
 
 	MainWindow(){
-		tableA = new TaskTable("A");
-		tableB = new TaskTable("B");
-		tableC = new TaskTable("C");
-		tableD = new TaskTable("D");
+		TaskTable tableA = new TaskTable("A");
+		TaskTable tableB = new TaskTable("B");
+		TaskTable tableC = new TaskTable("C");
+		TaskTable tableD = new TaskTable("D");
 
 		gridPane = new GridPane();
 		gridPane.add(tableA.getMainLayout(), 0, 0);
