@@ -87,7 +87,7 @@ public class TaskCreationWindow{
 				time.append(hourSpinner.getValue().toString() + ":");
 				if (minuteSpinner.getValue() < 10)
 					time.append('0');
-				time.append(minuteSpinner.getValue());
+				time.append(minuteSpinner.getValue() + ":00");
 
 				String dateString = new String();
 				if (datePicker.getValue() != null)

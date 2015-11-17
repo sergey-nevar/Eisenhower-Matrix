@@ -17,7 +17,7 @@ public class Task {
 		Date date = new Date();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		creationDate = new SimpleStringProperty(df.format(date));
-		df = new SimpleDateFormat("HH:mm");
+		df = new SimpleDateFormat("HH:mm:ss");
 		creationTime = new SimpleStringProperty(df.format(date));
 
 		this.name = new SimpleStringProperty(name);
