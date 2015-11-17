@@ -72,7 +72,7 @@ public class DatabaseController {
 			connection = DriverManager.getConnection(url, user, password);
 			statement = connection.createStatement();
 			String name = task.getName();
-			String priority = task.getPriotrity();
+			String priority = task.getPriority();
 			String cDate = task.getCreationDate();
 			String cTime = task.getCreationTime();
 			String dDate = task.getTermDate();
@@ -128,7 +128,7 @@ public class DatabaseController {
 			connection = DriverManager.getConnection(url, user, password);
 			statement = connection.createStatement();
 			String name = task.getName();
-			String priority = task.getPriotrity();
+			String priority = task.getPriority();
 			String cDate = task.getCreationDate();
 			String cTime = task.getCreationTime();
 			String dDate = task.getTermDate();
@@ -153,11 +153,11 @@ public class DatabaseController {
 			connection = DriverManager.getConnection(url, user, password);
 			statement = connection.createStatement();
 			String newName = newTask.getName();
-			String newPriority = newTask.getPriotrity();
+			String newPriority = newTask.getPriority();
 			String newDDate = newTask.getTermDate();
 			String newDTime = newTask.getTermTime();
 			String oldName = oldTask.getName();
-			String oldPriority = oldTask.getPriotrity();
+			String oldPriority = oldTask.getPriority();
 			String oldDDate = oldTask.getTermDate();
 			String oldDTime = oldTask.getTermTime();
 			String query = String.format(editTaskQuery, tableName, newName, newDDate, newDTime, newPriority,

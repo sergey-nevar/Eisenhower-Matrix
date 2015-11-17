@@ -48,7 +48,7 @@ public class Task {
 	public String getCreationDate(){
 		return creationDate.getValue();
 	}
-	public String getPriotrity(){
+	public String getPriority(){
 		return priority.getValue();
 	}
 	public void setName(String name){

@@ -35,7 +35,7 @@ public class TaskCreationWindow{
 	TaskCreationWindow(Task task) {
 		initializeWindow();
 		nameTextField.setText(task.getName());
-		choiceBox.setValue(task.getPriotrity());
+		choiceBox.setValue(task.getPriority());
 		Optional<Task> result = creationDialog.showAndWait();
 		if(result.isPresent()){
 			resultTask = result.get();

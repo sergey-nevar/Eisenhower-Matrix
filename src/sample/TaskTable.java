@@ -84,7 +84,7 @@ public class TaskTable {
 				if (cr.getResultTask() != null) {
 					dbController.editTask(nameOfTable, editingTask, cr.getResultTask());
 					editingTask.setName(cr.getResultTask().getName());
-					editingTask.setPriority(cr.getResultTask().getPriotrity());
+					editingTask.setPriority(cr.getResultTask().getPriority());
 					editingTask.setTermDate(cr.getResultTask().getTermDate());
 					editingTask.setTermTime(cr.getResultTask().getTermTime());
 				}
