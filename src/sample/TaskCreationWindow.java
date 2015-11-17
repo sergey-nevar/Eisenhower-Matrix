@@ -11,17 +11,11 @@ import java.util.Optional;
 public class TaskCreationWindow{
 	private Dialog<Task> creationDialog;
 	private Task resultTask;
-	private Label nameLabel;
-	private Label priorityLabel;
-	private Label dateLabel;
-	private Label timeLabel;
 	private Spinner<Integer> hourSpinner;
 	private Spinner<Integer> minuteSpinner;
 	private TextField nameTextField;
 	private ChoiceBox<String> choiceBox;
-	private HBox spinnerHBox;
 	private DatePicker datePicker;
-	private GridPane grid;
 	private ButtonType buttonTypeOk;
 
 	TaskCreationWindow(){
@@ -47,10 +41,10 @@ public class TaskCreationWindow{
 		creationDialog.setTitle("Add task");
 		creationDialog.setContentText("Add information and press OK");
 
-		nameLabel = new Label("Name of task: ");
-		priorityLabel = new Label("Priority: ");
-		dateLabel = new Label("Deadline date:");
-		timeLabel = new Label("Deadline time(h/m):");
+		Label nameLabel = new Label("Name of task: ");
+		Label priorityLabel = new Label("Priority: ");
+		Label dateLabel = new Label("Deadline date:");
+		Label timeLabel = new Label("Deadline time(h/m):");
 
 		hourSpinner = new Spinner<>(0, 23, 12);
 		hourSpinner.setMaxWidth(60);
@@ -58,7 +52,7 @@ public class TaskCreationWindow{
 		minuteSpinner = new Spinner<>(0, 55, 30, 5);
 		minuteSpinner.setMaxWidth(60);
 
-		spinnerHBox = new HBox(hourSpinner, minuteSpinner);
+		HBox spinnerHBox = new HBox(hourSpinner, minuteSpinner);
 
 		nameTextField = new TextField();
 
@@ -69,7 +63,7 @@ public class TaskCreationWindow{
 		datePicker.setValue(LocalDate.now());
 		datePicker.setEditable(false);
 
-		grid = new GridPane();
+		GridPane grid = new GridPane();
 		grid.add(nameLabel, 1, 1);
 		grid.add(nameTextField, 2, 1);
 		grid.add(dateLabel, 1, 2);
