@@ -78,9 +78,9 @@ public class TaskTable {
 		editButton = new Button("Edit");
 		editButton.setOnAction(event -> {
 			if(tableView.getSelectionModel().getSelectedIndex() != -1) {
-				TaskCreationWindow cr = new TaskCreationWindow(tableView.getSelectionModel().getSelectedItem());
+				Task editingTask = tableView.getSelectionModel().getSelectedItem();
+				TaskCreationWindow cr = new TaskCreationWindow(editingTask);
 				if (cr.getResultTask() != null) {
-					Task editingTask = tableView.getSelectionModel().getSelectedItem();
 					dbController.editTask(nameOfTable, editingTask, cr.getResultTask());
 					editingTask.setName(cr.getResultTask().getName());
 					editingTask.setPriority(cr.getResultTask().getPriotrity());
