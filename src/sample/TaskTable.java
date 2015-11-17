@@ -16,12 +16,6 @@ import java.util.List;
 public class TaskTable {
 	private List<Task> taskList;
 	private TableView<Task> tableView;
-	private Button addButton;
-	private Button editButton;
-	private Button deleteButton;
-	private Label nameLabel;
-	private HBox buttonLayout;
-	private VBox textLayout;
 	private VBox mainLayout;
 
 	TaskTable(String nameOfTable){
@@ -53,11 +47,11 @@ public class TaskTable {
 		tableView.getColumns().setAll(taskNameColumn, deadlineDateColumn, deadlineTimeColumn);
 		tableView.getColumns().addAll(creationDateColumn, creationTimeColumn, priorityColumn);
 
-		nameLabel = new Label(nameOfTable);
-		textLayout = new VBox(nameLabel);
+		Label nameLabel = new Label(nameOfTable);
+		VBox textLayout = new VBox(nameLabel);
 		textLayout.setAlignment(Pos.CENTER);
 
-		addButton = new Button("Add");
+		Button addButton = new Button("Add");
 		addButton.setOnAction(event -> {
 			TaskCreationWindow cr = new TaskCreationWindow();
 			if(cr.getResultTask() != null) {
@@ -67,7 +61,7 @@ public class TaskTable {
 			}
 		});
 
-		deleteButton = new Button("Delete");
+		Button deleteButton = new Button("Delete");
 		deleteButton.setOnAction(event ->{
 			int delRow = tableView.getSelectionModel().getSelectedIndex();
 			if(delRow != -1) {
@@ -76,7 +70,7 @@ public class TaskTable {
 			}
 		});
 
-		editButton = new Button("Edit");
+		Button editButton = new Button("Edit");
 		editButton.setOnAction(event -> {
 			if(tableView.getSelectionModel().getSelectedIndex() != -1) {
 				Task editingTask = tableView.getSelectionModel().getSelectedItem();
@@ -91,7 +85,7 @@ public class TaskTable {
 				tableView.getSelectionModel().clearSelection();
 			}
 		});
-		buttonLayout = new HBox(addButton, deleteButton, editButton);
+		HBox buttonLayout = new HBox(addButton, deleteButton, editButton);
 		buttonLayout.setAlignment(Pos.CENTER);
 
 		mainLayout = new VBox(textLayout, tableView, buttonLayout);
@@ -99,8 +93,5 @@ public class TaskTable {
 
 	public VBox getMainLayout(){
 		return mainLayout;
-	}
-	public void setLabel(String str){
-		nameLabel.setText(str);
 	}
 }
