@@ -16,7 +16,7 @@ public class TaskChecker {
 		taskChecker.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				ArrayList<Task> taskList = dbc.getOverdueTasks("A");
+				ArrayList<Task> taskList = dbc.getOverdueTasks(MainWindow.getTableNames());
 				if (!taskList.isEmpty()) {
 					for(Task task : taskList) {
 						Platform.runLater(() -> {
