@@ -15,15 +15,17 @@ public class DatabaseController {
 	private static final DatabaseController instance = new DatabaseController();
 
 	private final String createTableQuery =
-			"CREATE TABLE IF NOT EXISTS %s (id serial, taskName TEXT, dDate TEXT," +
-					" dTime TEXT, cDate TEXT, cTime TEXT, priority TEXT, PRIMARY KEY (id))";
+			"CREATE TABLE IF NOT EXISTS %s (id serial, taskName TEXT, dDate DATE," +
+					" dTime TIME, cDate DATE, cTime TIME, priority TEXT, PRIMARY KEY (id))";
 	private final String addTaskQuery =
 			"INSERT INTO %s (taskName, dDate, dTime, cDate, cTime, priority) " +
 					"VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
 	private final String removeTaskQuery = "DELETE FROM %s WHERE taskName='%s' AND dDate='%s' AND" +
 			" dTime='%s' AND cDate='%s' AND cTime='%s' AND priority='%s'";
 	private final String editTaskQuery = "UPDATE %s SET taskName='%s', dDate='%s', dTime='%s', priority='%s'" +
-			"WHERE taskName='%s' AND dDate='%s' AND dTime='%s' AND priority='%s'";
+			" WHERE taskName='%s' AND dDate='%s' AND dTime='%s' AND priority='%s'";
+	private final String getOverdueTasksQuery = "SELECT * FROM %s" +
+			" WHERE dDate=CURDATE() AND dTime<CURTIME()";
 
 	private DatabaseController() {
 		try {
@@ -173,5 +175,34 @@ public class DatabaseController {
 				statement.close();
 			} catch(SQLException se) { /*can't do anything */ }
 		}
+	}
+
+	public ArrayList<Task> getOverdueTasks(String tableName){
+		ArrayList<Task> resultList = new ArrayList<>();
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(String.format(getOverdueTasksQuery, tableName));
+			while(resultSet.next()){
+				resultList.add(new Task(resultSet.getString(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getString(5),
+						resultSet.getString(6), resultSet.getString(7)));
+			}
+		}
+		catch (SQLException sqlEx) {
+			sqlEx.printStackTrace();
+		}
+		finally {
+			try {
+				connection.close();
+			} catch(SQLException se) { /*can't do anything */ }
+			try {
+				statement.close();
+			} catch(SQLException se) { /*can't do anything */ }
+			try {
+				resultSet.close();
+			} catch(SQLException se) { /*can't do anything */ }
+		}
+		return resultList;
 	}
 }
