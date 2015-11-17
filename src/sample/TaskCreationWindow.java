@@ -1,11 +1,11 @@
 package sample;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class TaskCreationWindow{
@@ -62,10 +62,11 @@ public class TaskCreationWindow{
 
 		nameTextField = new TextField();
 
-		ObservableList<String> priorities = FXCollections.observableArrayList("-", "1", "2", "3", "4", "5");
-		choiceBox = new ChoiceBox<String>(priorities);
+		choiceBox = new ChoiceBox<>(FXCollections.observableArrayList("1", "2", "3", "4", "5"));
+		choiceBox.setValue("3");
 
 		datePicker = new DatePicker();
+		datePicker.setValue(LocalDate.now());
 		datePicker.setEditable(false);
 
 		grid = new GridPane();
