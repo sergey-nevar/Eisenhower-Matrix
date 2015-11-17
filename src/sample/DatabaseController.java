@@ -157,16 +157,18 @@ public class DatabaseController {
 		}
 	}
 
-	public ArrayList<Task> getOverdueTasks(String tableName){
+	public ArrayList<Task> getOverdueTasks(ArrayList<String> tableNames){
 		ArrayList<Task> resultList = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection(url, user, password);
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(String.format(getOverdueTasksQuery, tableName));
-			while(resultSet.next()){
-				resultList.add(new Task(resultSet.getString(2), resultSet.getString(3),
-						resultSet.getString(4), resultSet.getString(5),
-						resultSet.getString(6), resultSet.getString(7)));
+			for(String tableName : tableNames) {
+				resultSet = statement.executeQuery(String.format(getOverdueTasksQuery, tableName));
+				while (resultSet.next()) {
+					resultList.add(new Task(resultSet.getString(2), resultSet.getString(3),
+							resultSet.getString(4), resultSet.getString(5),
+							resultSet.getString(6), resultSet.getString(7)));
+				}
 			}
 		}
 		catch (SQLException sqlEx) {
