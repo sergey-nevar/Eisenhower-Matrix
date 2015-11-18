@@ -11,8 +11,9 @@ public class Main extends Application {
         primaryStage.setTitle("EisenhowerMatrix");
         TaskChecker tc = new TaskChecker();
         MainWindow mw = new MainWindow();
-        primaryStage.setScene(new Scene(mw.getMainLayout(), 1300, 700));
+        primaryStage.setScene(new Scene(mw.getMainLayout(), 1000, 700));
         primaryStage.show();
+        primaryStage.setMaximized(true);
         primaryStage.setOnCloseRequest(event -> tc.stopChecking());
     }
 
