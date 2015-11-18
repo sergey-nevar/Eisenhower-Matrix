@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 import java.util.List;
 
@@ -42,13 +43,14 @@ public class TaskTable {
 		tableView.getColumns().addAll(creationDateColumn, creationTimeColumn, priorityColumn);
 
 		Label nameLabel = new Label(nameOfTable);
+		nameLabel.setFont(Font.font(16));
 		VBox textLayout = new VBox(nameLabel);
 		textLayout.setAlignment(Pos.CENTER);
 
 		Button addButton = new Button("Add");
 		addButton.setOnAction(event -> {
 			TaskCreationWindow cr = new TaskCreationWindow();
-			if(cr.getResultTask() != null) {
+			if (cr.getResultTask() != null) {
 				taskList.add(cr.getResultTask());
 				tableView.setItems(FXCollections.observableList(taskList));
 				dbController.addTask(nameOfTable, cr.getResultTask());
@@ -56,9 +58,9 @@ public class TaskTable {
 		});
 
 		Button deleteButton = new Button("Delete");
-		deleteButton.setOnAction(event ->{
+		deleteButton.setOnAction(event -> {
 			int delRow = tableView.getSelectionModel().getSelectedIndex();
-			if(delRow != -1) {
+			if (delRow != -1) {
 				dbController.removeTask(nameOfTable, tableView.getSelectionModel().getSelectedItem());
 				tableView.getItems().remove(delRow);
 			}
@@ -66,7 +68,7 @@ public class TaskTable {
 
 		Button editButton = new Button("Edit");
 		editButton.setOnAction(event -> {
-			if(tableView.getSelectionModel().getSelectedIndex() != -1) {
+			if (tableView.getSelectionModel().getSelectedIndex() != -1) {
 				Task editingTask = tableView.getSelectionModel().getSelectedItem();
 				TaskCreationWindow cr = new TaskCreationWindow(editingTask);
 				if (cr.getResultTask() != null) {
@@ -81,7 +83,6 @@ public class TaskTable {
 		});
 		HBox buttonLayout = new HBox(addButton, deleteButton, editButton);
 		buttonLayout.setAlignment(Pos.CENTER);
-
 		mainLayout = new VBox(textLayout, tableView, buttonLayout);
 	}
 
