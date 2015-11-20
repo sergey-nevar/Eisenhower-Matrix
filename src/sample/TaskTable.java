@@ -56,6 +56,7 @@ public class TaskTable {
 				dbController.addTask(nameOfTable, cr.getResultTask());
 			}
 		});
+		addButton.setStyle("-fx-border-radius: 15; -fx-background-radius: 17; -fx-pref-width: 60");
 
 		Button deleteButton = new Button("Delete");
 		deleteButton.setOnAction(event -> {
@@ -65,6 +66,7 @@ public class TaskTable {
 				tableView.getItems().remove(delRow);
 			}
 		});
+		deleteButton.setStyle("-fx-border-radius: 15; -fx-background-radius: 17; -fx-pref-width: 60");
 
 		Button editButton = new Button("Edit");
 		editButton.setOnAction(event -> {
@@ -81,7 +83,9 @@ public class TaskTable {
 				tableView.getSelectionModel().clearSelection();
 			}
 		});
+		editButton.setStyle("-fx-border-radius: 15; -fx-background-radius: 17; -fx-pref-width: 60");
 		HBox buttonLayout = new HBox(addButton, deleteButton, editButton);
+		buttonLayout.setSpacing(5);
 		buttonLayout.setAlignment(Pos.CENTER);
 		mainLayout = new VBox(textLayout, tableView, buttonLayout);
 	}
