@@ -79,6 +79,7 @@ public class TaskTable {
 					editingTask.setPriority(cr.getResultTask().getPriority());
 					editingTask.setTermDate(cr.getResultTask().getTermDate());
 					editingTask.setTermTime(cr.getResultTask().getTermTime());
+					tableView.refresh();
 				}
 				tableView.getSelectionModel().clearSelection();
 			}
