@@ -13,13 +13,12 @@ public class DatabaseController {
 	private final String createTableQuery = "CREATE TABLE IF NOT EXISTS %s (id serial, taskName TEXT, " +
 			"dDate DATE, dTime TIME, cDate DATE, cTime TIME, priority TEXT, PRIMARY KEY (id))";
 	private final String addTaskQuery = "INSERT INTO %s (taskName, dDate, dTime, cDate, cTime, priority) " +
-			"VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
-	private final String removeTaskQuery = "DELETE FROM %s WHERE taskName='%s' AND dDate='%s' AND" +
-			" dTime='%s' AND cDate='%s' AND cTime='%s' AND priority='%s'";
-	private final String editTaskQuery = "UPDATE %s SET taskName='%s', dDate='%s', dTime='%s', priority='%s'" +
-			" WHERE taskName='%s' AND dDate='%s' AND dTime='%s' AND priority='%s'";
-	private final String getOverdueTasksQuery = "SELECT * FROM %s" +
-			" WHERE dDate=CURDATE() AND dTime<CURTIME()";
+			"VALUES (?, ?, ?, ?, ?, ?)";
+	private final String removeTaskQuery = "DELETE FROM %s WHERE taskName=? AND dDate=? AND" +
+			" dTime=? AND cDate=? AND cTime=? AND priority=?";
+	private final String editTaskQuery = "UPDATE %s SET taskName=?, dDate=?, dTime=?, priority=?" +
+			" WHERE taskName=? AND dDate=? AND dTime=? AND priority=?";
+	private final String getOverdueTasksQuery = "SELECT * FROM %s WHERE dDate=CURDATE() AND dTime<CURTIME()";
 
 	private DatabaseController() {
 		try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306", user, password);
@@ -46,10 +45,14 @@ public class DatabaseController {
 
 	public void addTask(String tableName, Task task){
 		try(Connection connection = DriverManager.getConnection(url, user, password);
-		Statement statement = connection.createStatement()) {
-			String query = String.format(addTaskQuery, tableName, task.getName(), task.getTermDate(),
-					task.getTermTime(), task.getCreationDate(), task.getCreationTime(), task.getPriority());
-			statement.executeUpdate(query);
+			PreparedStatement statement = connection.prepareStatement(String.format(addTaskQuery, tableName))) {
+			statement.setString(1, task.getName());
+			statement.setString(2, task.getTermDate());
+			statement.setString(3, task.getTermTime());
+			statement.setString(4, task.getCreationDate());
+			statement.setString(5, task.getCreationTime());
+			statement.setString(6, task.getPriority());
+			statement.executeUpdate();
 		}
 		catch (SQLException sqlEx) {
 			sqlEx.printStackTrace();
@@ -76,10 +79,14 @@ public class DatabaseController {
 
 	public void removeTask(String tableName, Task task){
 		try(Connection connection = DriverManager.getConnection(url, user, password);
-		    Statement statement = connection.createStatement()) {
-			String query = String.format(removeTaskQuery, tableName, task.getName(), task.getTermDate(),
-					task.getTermTime(), task.getCreationDate(), task.getCreationTime(), task.getPriority());
-			statement.executeUpdate(query);
+		    PreparedStatement statement = connection.prepareStatement(String.format(removeTaskQuery, tableName))) {
+			statement.setString(1, task.getName());
+			statement.setString(2, task.getTermDate());
+			statement.setString(3, task.getTermTime());
+			statement.setString(4, task.getCreationDate());
+			statement.setString(5, task.getCreationTime());
+			statement.setString(6, task.getPriority());
+			statement.executeUpdate();
 		}
 		catch (SQLException sqlEx) {
 			sqlEx.printStackTrace();
@@ -88,11 +95,16 @@ public class DatabaseController {
 
 	public void editTask(String tableName, Task oldTask, Task newTask){
 		try(Connection connection = DriverManager.getConnection(url, user, password);
-		    Statement statement = connection.createStatement()) {
-			String query = String.format(editTaskQuery, tableName, newTask.getName(), newTask.getTermDate(),
-					newTask.getTermTime(), newTask.getPriority(), oldTask.getName(), oldTask.getTermDate(),
-					oldTask.getTermTime(), oldTask.getPriority());
-			statement.executeUpdate(query);
+		    PreparedStatement statement = connection.prepareStatement(String.format(editTaskQuery, tableName))) {
+			statement.setString(1, newTask.getName());
+			statement.setString(2, newTask.getTermDate());
+			statement.setString(3, newTask.getTermTime());
+			statement.setString(4, newTask.getPriority());
+			statement.setString(5, oldTask.getName());
+			statement.setString(6, oldTask.getTermDate());
+			statement.setString(7, oldTask.getTermTime());
+			statement.setString(8, oldTask.getPriority());
+			statement.executeUpdate();
 		}
 		catch (SQLException sqlEx) {
 			sqlEx.printStackTrace();
