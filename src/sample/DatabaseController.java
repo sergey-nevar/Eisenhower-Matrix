@@ -10,16 +10,6 @@ public class DatabaseController {
 
 	private static final DatabaseController instance = new DatabaseController();
 
-	private final String createTableQuery = "CREATE TABLE IF NOT EXISTS %s (id serial, taskName TEXT, " +
-			"dDate DATE, dTime TIME, cDate DATE, cTime TIME, priority TEXT, PRIMARY KEY (id))";
-	private final String addTaskQuery = "INSERT INTO %s (taskName, dDate, dTime, cDate, cTime, priority) " +
-			"VALUES (?, ?, ?, ?, ?, ?)";
-	private final String removeTaskQuery = "DELETE FROM %s WHERE taskName=? AND dDate=? AND" +
-			" dTime=? AND cDate=? AND cTime=? AND priority=?";
-	private final String editTaskQuery = "UPDATE %s SET taskName=?, dDate=?, dTime=?, priority=?" +
-			" WHERE taskName=? AND dDate=? AND dTime=? AND priority=?";
-	private final String getOverdueTasksQuery = "SELECT * FROM %s WHERE dDate=CURDATE() AND dTime<CURTIME()";
-
 	private DatabaseController() {
 		try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306", user, password);
 		    Statement statement = connection.createStatement()) {
@@ -32,6 +22,8 @@ public class DatabaseController {
 	public void createTable(String tableName){
 		try(Connection connection = DriverManager.getConnection(url, user, password);
 		    Statement statement = connection.createStatement()) {
+			String createTableQuery = "CREATE TABLE IF NOT EXISTS %s (id serial, taskName TEXT, " +
+					"dDate DATE, dTime TIME, cDate DATE, cTime TIME, priority TEXT, PRIMARY KEY (id))";
 			statement.executeUpdate(String.format(createTableQuery, tableName));
 		}
 		catch (SQLException sqlEx) {
@@ -44,6 +36,8 @@ public class DatabaseController {
 	}
 
 	public void addTask(String tableName, Task task){
+		String addTaskQuery = "INSERT INTO %s (taskName, dDate, dTime, cDate, cTime, priority) " +
+				"VALUES (?, ?, ?, ?, ?, ?)";
 		try(Connection connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement statement = connection.prepareStatement(String.format(addTaskQuery, tableName))) {
 			statement.setString(1, task.getName());
@@ -78,6 +72,8 @@ public class DatabaseController {
 	}
 
 	public void removeTask(String tableName, Task task){
+		String removeTaskQuery = "DELETE FROM %s WHERE taskName=? AND dDate=? AND" +
+				" dTime=? AND cDate=? AND cTime=? AND priority=?";
 		try(Connection connection = DriverManager.getConnection(url, user, password);
 		    PreparedStatement statement = connection.prepareStatement(String.format(removeTaskQuery, tableName))) {
 			statement.setString(1, task.getName());
@@ -94,6 +90,8 @@ public class DatabaseController {
 	}
 
 	public void editTask(String tableName, Task oldTask, Task newTask){
+		String editTaskQuery = "UPDATE %s SET taskName=?, dDate=?, dTime=?, priority=?" +
+				" WHERE taskName=? AND dDate=? AND dTime=? AND priority=?";
 		try(Connection connection = DriverManager.getConnection(url, user, password);
 		    PreparedStatement statement = connection.prepareStatement(String.format(editTaskQuery, tableName))) {
 			statement.setString(1, newTask.getName());
@@ -116,6 +114,7 @@ public class DatabaseController {
 		try(Connection connection = DriverManager.getConnection(url, user, password);
 		    Statement statement = connection.createStatement()) {
 			for(String tableName : tableNames) {
+				String getOverdueTasksQuery = "SELECT * FROM %s WHERE dDate=CURDATE() AND dTime<CURTIME()";
 				try(ResultSet resultSet = statement.executeQuery(String.format(getOverdueTasksQuery, tableName))) {
 					while (resultSet.next()) {
 						resultList.add(new Task(resultSet.getString(2), resultSet.getString(3),
