@@ -84,12 +84,12 @@ public class TaskCreationWindow{
 				StringBuilder time = new StringBuilder();
 				if (hourSpinner.getValue() < 10)
 					time.append('0');
-				time.append(hourSpinner.getValue().toString() + ":");
+				time.append(hourSpinner.getValue().toString()).append(":");
 				if (minuteSpinner.getValue() < 10)
 					time.append('0');
-				time.append(minuteSpinner.getValue() + ":00");
+				time.append(minuteSpinner.getValue()).append(":00");
 
-				String dateString = new String();
+				String dateString = "";
 				if (datePicker.getValue() != null)
 					dateString = datePicker.getValue().toString();
 				return new Task(nameTextField.getText(), time.toString(), dateString, choiceBox.getValue());

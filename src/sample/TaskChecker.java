@@ -18,7 +18,7 @@ public class TaskChecker {
 			public void run() {
 				ArrayList<Task> taskList = dbc.getOverdueTasks(MainWindow.getTableNames());
 				if (!taskList.isEmpty()) {
-					for(Task task : taskList) {
+					for(Task task : taskList)
 						Platform.runLater(() -> {
 							Alert alert = new Alert(Alert.AlertType.INFORMATION);
 							alert.setTitle("Reminder Window");
@@ -26,7 +26,6 @@ public class TaskChecker {
 							alert.setContentText("You missed deadline of " + task.getName());
 							alert.showAndWait();
 						});
-					}
 				}
 			}
 		}, 5000, 60000);
