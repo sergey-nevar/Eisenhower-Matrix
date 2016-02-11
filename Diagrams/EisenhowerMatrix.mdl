@@ -91,18 +91,15 @@
 |Предусловия: отсутствуют.
 |
 |Основной поток событий:
-|1. Вариант использования начинается, когда пользователь нажимает кнопку "Добавить" одной из четырех таблиц.
-|2. Программа выводит диалоговое окно с предложением ввести данные, необходимые для создания задачи. Если пользователь жмет кнопку "Отмена", то выполняется альтернативный поток А1.
-|3. Пользователь вводит данные.
-|4. Программа проверяет введенные данные. Если введенные данные некорректны, то выполняется поток ошибок E1.
+|1. Вариант использования начинается, когда пользователь нажимает кнопку "Add" одной из четырех таблиц.
+|2. Программа выводит диалоговое окно с предложением ввести данные, необходимые для создания задачи. Если пользователь нажимает на красный крестик, то выполняется альтернативный поток А1.
+|3. Пользователь вводит данные и нажмает кнопку "Okay"
+|4. Программа проверяет введенные данные. Если пользователь не ввел имя задачи, то выполняется альтернативный поток A1.
 |5. Выполнить вариант использования "Сохранить изменения в базе данных".
 |6. Вариант использования завершается.
 |
 |Альтернативный поток событий А1:
 |3. Переход к шагу 6.
-|
-|Поток ошибок E1:
-|4. Программа выводит сообщение об ошибке. Переход к шагу 3.
 |
 |Постусловия:
 |1. Обновление значений в таблице.
@@ -122,15 +119,13 @@
 |1. В таблице должна быть хотя бы одна задача для редактирования.
 |
 |Основной поток событий:
-|1. Вариант использования начинается, когда пользователь нажимает на ячейки одной из четырех таблиц.
-|2. Пользователь непосредственно в таблице изменяет значение одной из ячеек.
-|3. Программа проверяет данные. В случае ввода некорректных данных выполняется поток ошибок Е1.
+|1. Вариант использования начинается, когда пользователь нажимает на кнопку "Edit" одной из четырех таблиц.
+|3. Программа проверяет данные. В случае ввода задачи без имени выполнить альтернативный поток А1.
 |4. Выполнить вариант использования "Сохранить изменения в базе данных".
 |5. Вариант использования завершается.
 |
-|Поток ошибок  Е1:
-|4. Программа выводит сообщение об ошибке.
-|5. Вариант использования завершается.
+|Альтернативный поток событий А1:
+|1. Перейти кшагу 5.
 |
 |Постусловия:
 |1. Обновление значений в таблице.
@@ -151,7 +146,7 @@
 |
 |Основной поток событий:
 |1. Вариант использования начинается, когда пользователь нажимает на ту задачу в таблице, которую нужно удалить.
-|2. Пользователь нажимает кнопку "Удалить" для той таблицы, которая содеражит удаляемую строку.
+|2. Пользователь нажимает кнопку "Delete" для той таблицы, которая содержит удаляемую строку.
 |3. Выполнить вариант использования "Сохранить изменения в базе данных".
 |4. Завершение варианта использования.
 |
@@ -177,23 +172,13 @@
 |
 |Альтернативный поток событий А1:
 |2. Программа выводит окно с информационным сообщением.
-|3. Пользователь жмет на кнопку "Продлить задачу", что вызовет альтернативный поток А3,  или на кнопку "Завершить выполнение", что вызовет альтернативный поток А4.
+|3. Пользователь жмет на кнопку "Ok", что вызовет закрытие окошка.
+|4. Завершение варианта использования.
 |
 |Альтернативный поток А2:
-|2. Через одну секунду перейти к шагу 1.
+|2. Через 5 секунд перейти к шагу 1.
 |
-|Альтернативный поток А3:
-|4. Программа выводит в информационном окне счетчик.
-|5. Пользователь вводит в счетчике время, на которое переносится задача.
-|6. Программа проверяет правильность введенного значения.
-|7. Завершение варианта использования.
 |
-|Альтернативный поток А4:
-|4. Вызвать вариант использования удаление созданных задач.
-|5. Завершение варианта использования.
-|
-|Постусловия:
-|1. Обновление значений в таблице.
 |
 		)
 	    (object UseCase "Сохранить изменения в базе данных"
@@ -404,7 +389,7 @@
 			annotation 	8
 			autoResize 	TRUE)
 		    (object AssociationViewNew "$UNNAMED$0" @6
-			location   	(602, 462)
+			location   	(601, 463)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -421,26 +406,26 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$1" @7
 				Parent_View 	@6
-				location   	(357, -335)
+				location   	(356, -334)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"56139DC9008D"
 				client     	@6
 				supplier   	@2
 				vertices   	(list Points
-				    (602, 462)
-				    (819, 353))
+				    (601, 463)
+				    (984, 273))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$2" @8
 				Parent_View 	@6
-				location   	(357, -335)
+				location   	(356, -334)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"56139DC9008F"
 				client     	@6
 				supplier   	@5
 				vertices   	(list Points
-				    (602, 462)
+				    (601, 463)
 				    (218, 653))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$3" @9
@@ -469,7 +454,7 @@
 				supplier   	@3
 				vertices   	(list Points
 				    (650, 595)
-				    (872, 555))
+				    (1082, 517))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$5" @11
 				Parent_View 	@9
@@ -481,7 +466,7 @@
 				supplier   	@5
 				vertices   	(list Points
 				    (650, 595)
-				    (218, 672))
+				    (218, 673))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$6" @12
 			location   	(642, 755)
@@ -509,7 +494,7 @@
 				supplier   	@4
 				vertices   	(list Points
 				    (642, 755)
-				    (1066, 820))
+				    (1067, 820))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$8" @14
 				Parent_View 	@12
@@ -521,7 +506,7 @@
 				supplier   	@5
 				vertices   	(list Points
 				    (642, 755)
-				    (218, 692))
+				    (218, 691))
 				line_style 	0)))
 		    (object UseCaseView "Use Case View::Сообщить об окончании срока выполнения задачи" @15
 			location   	(1149, 1265)
@@ -549,7 +534,7 @@
 			quidu      	"56139D450086"
 			height     	118)
 		    (object AssociationViewNew "$UNNAMED$9" @16
-			location   	(674, 984)
+			location   	(673, 984)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -566,27 +551,27 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$10" @17
 				Parent_View 	@16
-				location   	(-204, -275)
+				location   	(-205, -275)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"56139DD70299"
 				client     	@16
 				supplier   	@5
 				vertices   	(list Points
-				    (674, 984)
-				    (218, 716))
+				    (673, 984)
+				    (295, 761))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$11" @18
 				Parent_View 	@16
-				location   	(-204, -275)
+				location   	(-205, -275)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"56139DD7029B"
 				client     	@16
 				supplier   	@15
 				vertices   	(list Points
-				    (674, 984)
-				    (1049, 1206))
+				    (673, 984)
+				    (1052, 1207))
 				line_style 	0)))
 		    (object DependencyView "" @19
 			font       	(object Font
@@ -626,7 +611,7 @@
 			client     	@2
 			supplier   	@1
 			vertices   	(list Points
-			    (1460, 351)
+			    (1295, 272)
 			    (2079, 651))
 			line_style 	0)
 		    (object DependencyView "" @21
@@ -667,7 +652,7 @@
 			client     	@3
 			supplier   	@1
 			vertices   	(list Points
-			    (1513, 563)
+			    (1517, 565)
 			    (2079, 681))
 			line_style 	0)
 		    (object DependencyView "" @23
@@ -2183,57 +2168,7 @@
 			height     	444
 			annotation 	8
 			autoResize 	TRUE)
-		    (object ClassView "Class" "Logical View::MainWindow" @54
-			ShowCompartmentStereotypes 	TRUE
-			IncludeAttribute 	TRUE
-			IncludeOperation 	TRUE
-			location   	(1241, 859)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    charSet    	204
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			label      	(object ItemLabel
-			    Parent_View 	@54
-			    location   	(1049, 653)
-			    fill_color 	13434879
-			    nlines     	1
-			    max_width  	384
-			    justify    	0
-			    label      	"MainWindow")
-			icon_style 	"Icon"
-			line_color 	3342489
-			fill_color 	13434879
-			quidu      	"562538D00222"
-			compartment 	(object Compartment
-			    Parent_View 	@54
-			    location   	(1049, 714)
-			    font       	(object Font
-				size       	10
-				face       	"Arial"
-				charSet    	204
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	7
-			    max_width  	390
-			    justify    	1)
-			width      	402
-			height     	436
-			annotation 	8
-			autoResize 	TRUE)
-		    (object ClassView "Class" "Logical View::TaskCreationWindow" @55
+		    (object ClassView "Class" "Logical View::TaskCreationWindow" @54
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
@@ -2249,7 +2184,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@55
+			    Parent_View 	@54
 			    location   	(178, 1286)
 			    fill_color 	13434879
 			    nlines     	1
@@ -2261,7 +2196,7 @@
 			fill_color 	13434879
 			quidu      	"5624C7A002B4"
 			compartment 	(object Compartment
-			    Parent_View 	@55
+			    Parent_View 	@54
 			    location   	(178, 1347)
 			    font       	(object Font
 				size       	10
@@ -2281,6 +2216,56 @@
 			    justify    	1)
 			width      	669
 			height     	487
+			annotation 	8
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::MainWindow" @55
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1241, 859)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@55
+			    location   	(1049, 653)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	384
+			    justify    	0
+			    label      	"MainWindow")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"562538D00222"
+			compartment 	(object Compartment
+			    Parent_View 	@55
+			    location   	(1049, 714)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	7
+			    max_width  	390
+			    justify    	1)
+			width      	402
+			height     	436
 			annotation 	8
 			autoResize 	TRUE)
 		    (object ClassView "Class" "Logical View::TaskTable" @56
@@ -2369,7 +2354,7 @@
 				supplier   	@56
 				vertices   	(list Points
 				    (1238, 1863)
-				    (1239, 1812))
+				    (1243, 1493))
 				line_style 	0
 				label      	(object SegLabel @59
 				    Parent_View 	@58
@@ -2413,7 +2398,7 @@
 				supplier   	@53
 				vertices   	(list Points
 				    (1238, 1863)
-				    (1237, 1915))
+				    (1235, 2138))
 				line_style 	0
 				label      	(object SegLabel @61
 				    Parent_View 	@60
@@ -2470,10 +2455,10 @@
 				line_color 	3342489
 				quidu      	"562614BE01D9"
 				client     	@62
-				supplier   	@54
+				supplier   	@55
 				vertices   	(list Points
 				    (1241, 1125)
-				    (1241, 1077))
+				    (1241, 859))
 				line_style 	0
 				label      	(object SegLabel @64
 				    Parent_View 	@63
@@ -2517,7 +2502,7 @@
 				supplier   	@56
 				vertices   	(list Points
 				    (1241, 1125)
-				    (1241, 1173))
+				    (1243, 1493))
 				line_style 	0
 				label      	(object SegLabel @66
 				    Parent_View 	@65
@@ -2597,10 +2582,10 @@
 				line_color 	3342489
 				quidu      	"56262A55039B"
 				client     	@67
-				supplier   	@55
+				supplier   	@54
 				vertices   	(list Points
 				    (896, 1503)
-				    (837, 1505))
+				    (503, 1517))
 				line_style 	0
 				label      	(object SegLabel @70
 				    Parent_View 	@69
@@ -2644,7 +2629,7 @@
 				supplier   	@56
 				vertices   	(list Points
 				    (896, 1503)
-				    (955, 1502))
+				    (1243, 1493))
 				line_style 	0
 				label      	(object SegLabel @72
 				    Parent_View 	@71
@@ -2750,10 +2735,10 @@
 				line_color 	3342489
 				quidu      	"562627F601E9"
 				client     	@74
-				supplier   	@54
+				supplier   	@55
 				vertices   	(list Points
 				    (1700, 650)
-				    (1442, 767))
+				    (1442, 766))
 				line_style 	0
 				label      	(object SegLabel @76
 				    Parent_View 	@75
@@ -2797,7 +2782,7 @@
 				supplier   	@73
 				vertices   	(list Points
 				    (1700, 650)
-				    (1958, 533))
+				    (1958, 534))
 				line_style 	0
 				label      	(object SegLabel @78
 				    Parent_View 	@77
@@ -2907,7 +2892,7 @@
 				supplier   	@79
 				vertices   	(list Points
 				    (1662, 1496)
-				    (1795, 1498))
+				    (1795, 1497))
 				line_style 	0
 				label      	(object SegLabel @82
 				    Parent_View 	@81
@@ -2951,7 +2936,7 @@
 				supplier   	@56
 				vertices   	(list Points
 				    (1662, 1496)
-				    (1530, 1495))
+				    (1530, 1494))
 				line_style 	0
 				label      	(object SegLabel @84
 				    Parent_View 	@83
@@ -3111,7 +3096,7 @@
 				supplier   	@86
 				vertices   	(list Points
 				    (2049, 647)
-				    (2049, 708))
+				    (2052, 927))
 				line_style 	0
 				label      	(object SegLabel @89
 				    Parent_View 	@88
@@ -3155,7 +3140,7 @@
 				supplier   	@73
 				vertices   	(list Points
 				    (2049, 647)
-				    (2049, 587))
+				    (2049, 494))
 				line_style 	0
 				label      	(object SegLabel @91
 				    Parent_View 	@90
@@ -3215,7 +3200,7 @@
 				supplier   	@79
 				vertices   	(list Points
 				    (2050, 1189)
-				    (2050, 1233))
+				    (2050, 1502))
 				line_style 	0
 				label      	(object SegLabel @94
 				    Parent_View 	@93
@@ -3259,7 +3244,7 @@
 				supplier   	@86
 				vertices   	(list Points
 				    (2050, 1189)
-				    (2051, 1145))
+				    (2052, 927))
 				line_style 	0
 				label      	(object SegLabel @96
 				    Parent_View 	@95
@@ -3319,7 +3304,7 @@
 				supplier   	@85
 				vertices   	(list Points
 				    (2474, 921)
-				    (2533, 921))
+				    (2765, 919))
 				line_style 	0
 				label      	(object SegLabel @99
 				    Parent_View 	@98
@@ -3363,7 +3348,7 @@
 				supplier   	@86
 				vertices   	(list Points
 				    (2474, 921)
-				    (2415, 922))
+				    (2052, 927))
 				line_style 	0
 				label      	(object SegLabel @101
 				    Parent_View 	@100

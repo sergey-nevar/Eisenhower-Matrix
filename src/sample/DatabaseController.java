@@ -6,11 +6,7 @@ import java.util.ArrayList;
 public class DatabaseController {
 	private final String url = "jdbc:mysql://localhost:3306/EMatrix";
 	private final String user = "root";
-	private final String password = "1234";
-
-	private Connection connection;
-	private Statement statement;
-	private ResultSet resultSet;
+	private final String password = "root";
 
 	private static final DatabaseController instance = new DatabaseController();
 
@@ -26,37 +22,21 @@ public class DatabaseController {
 			" WHERE dDate=CURDATE() AND dTime<CURTIME()";
 
 	private DatabaseController() {
-		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306", user, password);
-			statement = connection.createStatement();
+		try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306", user, password);
+		    Statement statement = connection.createStatement()) {
 			statement.executeUpdate("CREATE DATABASE IF NOT EXISTS EMatrix");
 		} catch (SQLException sqlEx) {
 			sqlEx.printStackTrace();
-		} finally {
-			try {
-				connection.close();
-			} catch(SQLException se) { /*can't do anything */ }
-			try {
-				statement.close();
-			} catch(SQLException se) { /*can't do anything */ }
 		}
 	}
+
 	public void createTable(String tableName){
-		try {
-			connection = DriverManager.getConnection(url, user, password);
-			statement = connection.createStatement();
+		try(Connection connection = DriverManager.getConnection(url, user, password);
+		    Statement statement = connection.createStatement()) {
 			statement.executeUpdate(String.format(createTableQuery, tableName));
 		}
 		catch (SQLException sqlEx) {
 			sqlEx.printStackTrace();
-		}
-		finally {
-			try {
-				connection.close();
-			} catch(SQLException se) { /*can't do anything */ }
-			try {
-				statement.close();
-			} catch(SQLException se) { /*can't do anything */ }
 		}
 	}
 
@@ -65,9 +45,8 @@ public class DatabaseController {
 	}
 
 	public void addTask(String tableName, Task task){
-		try {
-			connection = DriverManager.getConnection(url, user, password);
-			statement = connection.createStatement();
+		try(Connection connection = DriverManager.getConnection(url, user, password);
+		Statement statement = connection.createStatement()) {
 			String query = String.format(addTaskQuery, tableName, task.getName(), task.getTermDate(),
 					task.getTermTime(), task.getCreationDate(), task.getCreationTime(), task.getPriority());
 			statement.executeUpdate(query);
@@ -75,95 +54,13 @@ public class DatabaseController {
 		catch (SQLException sqlEx) {
 			sqlEx.printStackTrace();
 		}
-		finally {
-			try {
-				connection.close();
-			} catch(SQLException se) { /*can't do anything */ }
-			try {
-				statement.close();
-			} catch(SQLException se) { /*can't do anything */ }
-		}
 	}
 
 	public ArrayList<Task> getTasks(String tableName){
 		ArrayList<Task> resultList = new ArrayList<>();
-		try {
-			connection = DriverManager.getConnection(url, user, password);
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery(String.format("SELECT * FROM %s", tableName));
-
-			while(resultSet.next()){
-				resultList.add(new Task(resultSet.getString(2), resultSet.getString(3),
-						resultSet.getString(4), resultSet.getString(5),
-						resultSet.getString(6), resultSet.getString(7)));
-			}
-		}
-		catch (SQLException sqlEx) {
-			sqlEx.printStackTrace();
-		}
-		finally {
-			try {
-				connection.close();
-			} catch(SQLException se) { /*can't do anything */ }
-			try {
-				statement.close();
-			} catch(SQLException se) { /*can't do anything */ }
-			try {
-				resultSet.close();
-			} catch(SQLException se) { /*can't do anything */ }
-		}
-		return resultList;
-	}
-
-	public void removeTask(String tableName, Task task){
-		try {
-			connection = DriverManager.getConnection(url, user, password);
-			statement = connection.createStatement();
-			String query = String.format(removeTaskQuery, tableName, task.getName(), task.getTermDate(),
-					task.getTermTime(), task.getCreationDate(), task.getCreationTime(), task.getPriority());
-			statement.executeUpdate(query);
-		}
-		catch (SQLException sqlEx) {
-			sqlEx.printStackTrace();
-		}
-		finally {
-			try {
-				connection.close();
-			} catch(SQLException se) { /*can't do anything */ }
-			try {
-				statement.close();
-			} catch(SQLException se) { /*can't do anything */ }
-		}
-	}
-	public void editTask(String tableName, Task oldTask, Task newTask){
-		try {
-			connection = DriverManager.getConnection(url, user, password);
-			statement = connection.createStatement();
-			String query = String.format(editTaskQuery, tableName, newTask.getName(), newTask.getTermDate(),
-					newTask.getTermTime(), newTask.getPriority(), oldTask.getName(), oldTask.getTermDate(),
-					oldTask.getTermTime(), oldTask.getPriority());
-			statement.executeUpdate(query);
-		}
-		catch (SQLException sqlEx) {
-			sqlEx.printStackTrace();
-		}
-		finally {
-			try {
-				connection.close();
-			} catch(SQLException se) { /*can't do anything */ }
-			try {
-				statement.close();
-			} catch(SQLException se) { /*can't do anything */ }
-		}
-	}
-
-	public ArrayList<Task> getOverdueTasks(ArrayList<String> tableNames){
-		ArrayList<Task> resultList = new ArrayList<>();
-		try {
-			connection = DriverManager.getConnection(url, user, password);
-			statement = connection.createStatement();
-			for(String tableName : tableNames) {
-				resultSet = statement.executeQuery(String.format(getOverdueTasksQuery, tableName));
+		try(Connection connection = DriverManager.getConnection(url, user, password);
+		    Statement statement = connection.createStatement()) {
+			try(ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM %s", tableName))){
 				while (resultSet.next()) {
 					resultList.add(new Task(resultSet.getString(2), resultSet.getString(3),
 							resultSet.getString(4), resultSet.getString(5),
@@ -174,16 +71,50 @@ public class DatabaseController {
 		catch (SQLException sqlEx) {
 			sqlEx.printStackTrace();
 		}
-		finally {
-			try {
-				connection.close();
-			} catch(SQLException se) { /*can't do anything */ }
-			try {
-				statement.close();
-			} catch(SQLException se) { /*can't do anything */ }
-			try {
-				resultSet.close();
-			} catch(SQLException se) { /*can't do anything */ }
+		return resultList;
+	}
+
+	public void removeTask(String tableName, Task task){
+		try(Connection connection = DriverManager.getConnection(url, user, password);
+		    Statement statement = connection.createStatement()) {
+			String query = String.format(removeTaskQuery, tableName, task.getName(), task.getTermDate(),
+					task.getTermTime(), task.getCreationDate(), task.getCreationTime(), task.getPriority());
+			statement.executeUpdate(query);
+		}
+		catch (SQLException sqlEx) {
+			sqlEx.printStackTrace();
+		}
+	}
+
+	public void editTask(String tableName, Task oldTask, Task newTask){
+		try(Connection connection = DriverManager.getConnection(url, user, password);
+		    Statement statement = connection.createStatement()) {
+			String query = String.format(editTaskQuery, tableName, newTask.getName(), newTask.getTermDate(),
+					newTask.getTermTime(), newTask.getPriority(), oldTask.getName(), oldTask.getTermDate(),
+					oldTask.getTermTime(), oldTask.getPriority());
+			statement.executeUpdate(query);
+		}
+		catch (SQLException sqlEx) {
+			sqlEx.printStackTrace();
+		}
+	}
+
+	public ArrayList<Task> getOverdueTasks(ArrayList<String> tableNames){
+		ArrayList<Task> resultList = new ArrayList<>();
+		try(Connection connection = DriverManager.getConnection(url, user, password);
+		    Statement statement = connection.createStatement()) {
+			for(String tableName : tableNames) {
+				try(ResultSet resultSet = statement.executeQuery(String.format(getOverdueTasksQuery, tableName))) {
+					while (resultSet.next()) {
+						resultList.add(new Task(resultSet.getString(2), resultSet.getString(3),
+								resultSet.getString(4), resultSet.getString(5),
+								resultSet.getString(6), resultSet.getString(7)));
+					}
+				}
+			}
+		}
+		catch (SQLException sqlEx) {
+			sqlEx.printStackTrace();
 		}
 		return resultList;
 	}
