@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.collections.FXCollections;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
@@ -9,6 +8,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.util.List;
+
+import static javafx.geometry.Pos.*;
 
 public class TaskTable {
 	private List<Task> taskList;
@@ -45,7 +46,7 @@ public class TaskTable {
 		Label nameLabel = new Label(nameOfTable);
 		nameLabel.setFont(Font.font(16));
 		VBox textLayout = new VBox(nameLabel);
-		textLayout.setAlignment(Pos.CENTER);
+		textLayout.setAlignment(CENTER);
 
 		Button addButton = new Button("Add");
 		addButton.setOnAction(event -> {
@@ -87,7 +88,7 @@ public class TaskTable {
 		editButton.setStyle("-fx-border-radius: 15; -fx-background-radius: 17; -fx-pref-width: 60");
 		HBox buttonLayout = new HBox(addButton, deleteButton, editButton);
 		buttonLayout.setSpacing(5);
-		buttonLayout.setAlignment(Pos.CENTER);
+		buttonLayout.setAlignment(CENTER);
 		mainLayout = new VBox(textLayout, tableView, buttonLayout);
 	}
 
